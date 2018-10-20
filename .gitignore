@@ -4,3 +4,5 @@ lib
 public
 html.iml
 .idea/uiDesigner.xml
+.idea/
+workspace.xml
