@@ -1,11 +1,15 @@
 package main.java;
 import com.mongodb.DBCollection;
 import static com.mongodb.client.model.Filters.*;
+//import static com.mongodb.client.model.Filters.eq;
+
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
+import org.eclipse.jetty.server.Authentication;
+import sun.security.util.Password;
 
 
 public class DataBase {
@@ -26,15 +30,28 @@ public class DataBase {
 
     public void storedata(String username, String password)
     {
+
         Document doc = new Document("User", username)
-                .append("Password", password);
-        // insert document into collection
+                .append("Password", password).append("Friennds", new Document());
         myCollection.insertOne(doc);
     }
 
-    public String getdata()
+    public void update(String username, String password)
     {
-        return "";
+        myCollection.updateOne(eq("User", username), new Document("$set", new Document("Friend", 110)));
+
+    }
+
+    public boolean loginCheck(String username, String password)
+    {
+        try {
+            Document search = myCollection.find(eq("User", username)).first();
+            return (search.getString("User").equals(username)&&
+                    search.getString("Password").equals(password));
+        }catch (Exception e)
+        {
+            return false;
+        }
     }
 
     public static DataBase getInstance()
