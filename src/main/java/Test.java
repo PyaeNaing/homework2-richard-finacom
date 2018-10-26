@@ -6,7 +6,7 @@ public class Test {
     public static void main(String[] args)
     {
         DataBase d = DataBase.getInstance();
-        //d.test();
+//        d.test();
         d.createUser("JJ", "Jee");
         d.createUser("Osbaldo", "o123");
         d.createUser("Pyae", "1234");
@@ -14,6 +14,8 @@ public class Test {
         d.addFriend("Pyae", "JJ");
         d.addFriend("Pyyae  ", "JJ");
         d.addFriend("Pyae", "KK");
+        d.addFriend("Pyae" , "Osbaldo");
+        d.addFriend("Pyae" , "Pyae");
         /**/
         /*Document doc = new Document("name", "MongoDB")
                 .append("type", "database")

@@ -64,7 +64,7 @@ public class DataBase {
             Document search = myCollection.find(eq("User", friend)).first();
             Document user1 = myCollection.find(eq("User", user)).first();
             if (search != null) {
-                String f = "Friend." + friend;
+                String f = "Friends." + friend;
                 Document updateInstruction = new Document("$set", new Document(f, friend));
                 myCollection.updateOne(user1, updateInstruction);
                 return true;
@@ -92,17 +92,14 @@ public class DataBase {
     // testing field
     public void test()
     {
-        Document search = myCollection.find(eq("User", "JJ")).first();
+        Document search = myCollection.find(eq("User", "Pyae")).first();
 
-        Document updateInstruction = new Document("$set", new Document("Friends.3", "P3333"));
+//        Document updateInstruction = new Document("$set", new Document("Friends.3", "P3333"));
         //System.out.println(search.get("Friends"));
         System.out.println(search.get("Friends"));
-        myCollection.updateOne(search,updateInstruction);
+        //myCollection.updateOne(search,updateInstruction);
         //System.out.println(updateInstruction);
 
-        //doc.append("info", new Document("z",20));
-        //Document temp = new Document();
-       // temp.append("info", doc.get("info"));
 
     }
     public void update(String username, String password)
