@@ -7,7 +7,7 @@ public class Test {
     {
         DataBase d = DataBase.getInstance();
         //d.test();
-        /*
+
         System.out.println(d.getFriendList("JJ"));
 
         d.createUser("JJ", "Jee");

@@ -1,18 +1,12 @@
 package main.java;
-import com.mongodb.DBCollection;
 import static com.mongodb.client.model.Filters.*;
 //import static com.mongodb.client.model.Filters.eq;
 
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
-import org.eclipse.jetty.server.Authentication;
-import sun.security.util.Password;
-
-import javax.print.Doc;
-import java.util.ArrayList;
+import javax.servlet.http.Cookie;
 
 
 public class DataBase {
@@ -21,14 +15,15 @@ public class DataBase {
 
     private MongoClient mongoClient;
     private MongoDatabase db;
-    private MongoCollection<Document> myCollection;
+    private MongoCollection<Document> myCollectionUsers;
+    private MongoCollection<Document> myCollectionToken;
 
     private DataBase()
     {
         mongoClient = new MongoClient("localhost", 27017);
         db = mongoClient.getDatabase("REST2");
-        myCollection = db.getCollection("users ");
-        myCollection = db.getCollection("auth ");
+        myCollectionUsers = db.getCollection("users ");
+        myCollectionToken = db.getCollection("auth ");
 
 
     }
@@ -44,12 +39,12 @@ public class DataBase {
 
     public boolean createUser(String username, String password)
     {
-        Document search = myCollection.find(eq("User", username)).first();
+        Document search = myCollectionUsers.find(eq("User", username)).first();
         if(search == null)
         {
             Document doc = new Document("User", username)
                     .append("Password", password).append("Friends", new Document());
-            myCollection.insertOne(doc);
+            myCollectionUsers.insertOne(doc);
             return true;
         }
         return false;
@@ -58,7 +53,7 @@ public class DataBase {
     public boolean loginCheck(String username, String password)
     {
         try {
-            Document search = myCollection.find(eq("User", username)).first();
+            Document search = myCollectionUsers.find(eq("User", username)).first();
             return (search.getString("User").equals(username)&&
                     search.getString("Password").equals(password));
         }catch (Exception e)
@@ -72,12 +67,12 @@ public class DataBase {
         //Find Friend and Add them.
         //How do you find friend?
         try {
-            Document search = myCollection.find(eq("User", friend)).first();
-            Document user1 = myCollection.find(eq("User", user)).first();
+            Document search = myCollectionUsers.find(eq("User", friend)).first();
+            Document user1 = myCollectionUsers.find(eq("User", user)).first();
             if (search != null && !user.equals(friend)) {
                 String f = "Friends." + friend;
                 Document updateInstruction = new Document("$set", new Document(f, friend));
-                myCollection.updateOne(user1, updateInstruction);
+                myCollectionUsers.updateOne(user1, updateInstruction);
                 return true;
             }
         }catch (Exception e)
@@ -91,7 +86,7 @@ public class DataBase {
     {
         String x = "[]";
         try {
-            Document search = myCollection.find(eq("User", user)).first();
+            Document search = myCollectionUsers.find(eq("User", user)).first();
             Document t = (Document) search.get("Friends");
             x = t.values().toString();
         } catch (Exception e) {
@@ -101,5 +96,16 @@ public class DataBase {
     }
 
     //Auth
+
+    public void createCookie(Cookie cookie) {
+        String key = cookie.getValue();
+        String userName = cookie.getName();
+        Document doc = new Document(key, userName);
+        myCollectionToken.insertOne(doc);
+    }
+
+    public String checkToken(String token) {
+        
+    }
 
 }
