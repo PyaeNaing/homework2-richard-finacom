@@ -7,6 +7,10 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import javax.servlet.http.Cookie;
+import org.eclipse.jetty.server.Authentication;
+
+import javax.print.Doc;
+import java.util.ArrayList;
 
 
 public class DataBase {
@@ -105,7 +109,7 @@ public class DataBase {
     }
 
     public String checkToken(String token) {
-        
+        return null;
     }
 
 }
