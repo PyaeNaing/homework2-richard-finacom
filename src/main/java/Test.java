@@ -6,7 +6,10 @@ public class Test {
     public static void main(String[] args)
     {
         DataBase d = DataBase.getInstance();
-//        d.test();
+        //d.test();
+        /*
+        System.out.println(d.getFriendList("JJ"));
+
         d.createUser("JJ", "Jee");
         d.createUser("Osbaldo", "o123");
         d.createUser("Pyae", "1234");
@@ -16,6 +19,9 @@ public class Test {
         d.addFriend("Pyae", "KK");
         d.addFriend("Pyae" , "Osbaldo");
         d.addFriend("Pyae" , "Pyae");
+        d.createUser("Sawyer", "OwO :3");
+        d.addFriend("JJ", "Sawyer");
+
         /**/
         /*Document doc = new Document("name", "MongoDB")
                 .append("type", "database")

@@ -7,7 +7,10 @@ public class Main {
       // http://sparkjava.com/documentation
       port(1234);
       // calling get will make your app start listening for the GET path with the /hello endpoint
-      get("/hello", (req, res) -> "Hello World");
+      get("/hello", (req, res)->{
+      return "";
+      });
+
 
     }
 }

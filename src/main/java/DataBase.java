@@ -26,10 +26,21 @@ public class DataBase {
     private DataBase()
     {
         mongoClient = new MongoClient("localhost", 27017);
-        db = mongoClient.getDatabase("Test");
-        myCollection = db.getCollection("Users");
+        db = mongoClient.getDatabase("REST2");
+        myCollection = db.getCollection("users ");
+        myCollection = db.getCollection("auth ");
+
 
     }
+
+    public static DataBase getInstance() {
+        if (instance == null) {
+            instance = new DataBase();
+        }
+        return instance;
+    }
+
+    //This is Users
 
     public boolean createUser(String username, String password)
     {
@@ -63,7 +74,7 @@ public class DataBase {
         try {
             Document search = myCollection.find(eq("User", friend)).first();
             Document user1 = myCollection.find(eq("User", user)).first();
-            if (search != null) {
+            if (search != null && !user.equals(friend)) {
                 String f = "Friends." + friend;
                 Document updateInstruction = new Document("$set", new Document(f, friend));
                 myCollection.updateOne(user1, updateInstruction);
@@ -76,35 +87,19 @@ public class DataBase {
         return false;
     }
 
-    public void friendList(String user)
+    public String getFriendList(String user)
     {
-        Document search = myCollection.find(eq("User", user)).first();
-    }
+        String x = "[]";
+        try {
+            Document search = myCollection.find(eq("User", user)).first();
+            Document t = (Document) search.get("Friends");
+            x = t.values().toString();
+        } catch (Exception e) {
 
-    public static DataBase getInstance() {
-        if (instance == null) {
-            instance = new DataBase();
         }
-        return instance;
+        return x;
     }
 
+    //Auth
 
-    // testing field
-    public void test()
-    {
-        Document search = myCollection.find(eq("User", "Pyae")).first();
-
-//        Document updateInstruction = new Document("$set", new Document("Friends.3", "P3333"));
-        //System.out.println(search.get("Friends"));
-        System.out.println(search.get("Friends"));
-        //myCollection.updateOne(search,updateInstruction);
-        //System.out.println(updateInstruction);
-
-
-    }
-    public void update(String username, String password)
-    {
-        myCollection.updateOne(eq("User", username), new Document("$set", new Document("Friend", 110)));
-
-    }
 }
