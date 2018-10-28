@@ -11,8 +11,13 @@ public class Processes {
 
     //return false if username is already in use by another user
     public static Route createNewUser = (Request request, Response response) -> {
-        String x = request.url();
-        return x;
+        DataBase data = DataBase.getInstance();
+        String x = request.queryParams("username");
+        String y = request.queryParams("password");
+        if(data.createUser(x, y)) {
+            return "okay";
+        }
+        return "Username already in use.";
     };
 
     //method used for user login. returns a null cookie if login failed otherwise a valid cookie is returned
