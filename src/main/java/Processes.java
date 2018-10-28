@@ -1,34 +1,38 @@
 package main.java;
 
-import spark.Request;
-import spark.Response;
-import spark.Route;
-
 import javax.servlet.http.Cookie;
-import static spark.Spark.*;
+import java.util.Random;
 
 public class Processes {
 
     //return false if username is already in use by another user
-    public static Route createNewUser = (Request request, Response response) -> {
+    public static String createNewUser(String username, String password) {
         DataBase data = DataBase.getInstance();
-        String x = request.queryParams("username");
-        String y = request.queryParams("password");
-        if(data.createUser(x, y)) {
-            return "okay";
+        if(data.createUser(username, password)) {
+            return "Okay!";
         }
         return "Username already in use.";
     };
 
     //method used for user login. returns a null cookie if login failed otherwise a valid cookie is returned
-    public static Cookie userLogin(String username, String password) {
+    public static String userLogin(String username, String password) {
         DataBase d = DataBase.getInstance();
-        String token = Long.toString(System.nanoTime());
-        Cookie authentication = new Cookie("token", token);
+        String token = generateString();
+        Cookie authentication = new Cookie(username, token);
         if (!(d.loginCheck(username, password))) {
-            return null;
+            return "login_failed";
         } else {
-            return authentication;
+            return token;
         }
     }
+
+    public static String generateString() {
+        Random x = new Random();
+        String w = "";
+        for (int i = 0; i < 10; i++) {
+             w += x.nextInt(10);
+        }
+        return w;
+    }
+
 }
