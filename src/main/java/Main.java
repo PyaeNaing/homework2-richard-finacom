@@ -28,8 +28,8 @@ public class Main {
       // calling get will make your app start listening for the GET path with the /hello endpoint
       get("/newuser", (req, res)->{
         String username = req.queryParams("username");
-        String password = req.queryParams("password");5
-        String response = Processes.newUser(username, password);
+        String password = req.queryParams("password");
+        String response = Processes.createNewUser(username, password);
       return response;
       });
 
@@ -43,15 +43,13 @@ public class Main {
       get("/addfriend", (req, res)->{
         String friend = req.queryParams("friend");
         String token = req.queryParams("token");
-        String response = Processes.addfiend(friend, token);
-
+        String response = Processes.addFriendProcess(friend, token);
         return response;
       });
 
       get("/friends", (req, res)->{
         String token = req.queryParams("token");
-        String response = Processes.friends(token);
-
+        String response = Processes.printFriendList(token);
         return response;
       });
 
