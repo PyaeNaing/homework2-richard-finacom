@@ -19,6 +19,7 @@ public class Processes {
         DataBase d = DataBase.getInstance();
         String token = generateString();
         Cookie authentication = new Cookie(username, token);
+        d.createCookie(authentication);
         if (!(d.loginCheck(username, password))) {
             return "login_failed";
         } else {
