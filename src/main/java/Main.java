@@ -43,7 +43,7 @@ public class Main {
       get("/addfriend", (req, res)->{
         String friend = req.queryParams("friend");
         String token = req.queryParams("token");
-        String response = Processes.addFriendProcess(friend, token);
+        String response = Processes.addFriendProcess(token, friend);
         return response;
       });
 
