@@ -1,6 +1,7 @@
 package main.java;
 
 import org.bson.Document;
+import javax.servlet.http.Cookie;
 
 public class Test {
     public static void main(String[] args)
@@ -21,7 +22,10 @@ public class Test {
         d.addFriend("Pyae" , "Pyae");
         d.createUser("Sawyer", "OwO :3");
         d.addFriend("JJ", "Sawyer");
-
+        Cookie cookie = new Cookie("JJ", "123456");
+        d.createCookie(cookie);
+        System.out.println(d.checkToken("123456"));
+        System.out.println(d.checkToken("123456567"));
         /**/
         /*Document doc = new Document("name", "MongoDB")
                 .append("type", "database")

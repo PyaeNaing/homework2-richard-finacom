@@ -104,12 +104,22 @@ public class DataBase {
     public void createCookie(Cookie cookie) {
         String key = cookie.getValue();
         String userName = cookie.getName();
-        Document doc = new Document(key, userName);
+        Document doc = new Document("key",key).append("userName", userName);
         myCollectionToken.insertOne(doc);
     }
 
     public String checkToken(String token) {
-        return null;
+        String s = "";
+        try {
+            Document search = myCollectionToken.find(eq("User",token)).first();
+            if (token.equals(search)) {
+                Document doc = myCollectionToken.find(eq("key", token)).first();
+                s = doc.getString("userName");
+            }
+        } catch(Exception e) {
+            return null;
+        }
+        return s;
     }
 
 }

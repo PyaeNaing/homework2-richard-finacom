@@ -23,6 +23,7 @@ public class Main {
   public static void main(String[] args) {
       // staticFiles.externalLocation("public");
       // http://sparkjava.com/documentation
+      /*
       port(1234);
       // calling get will make your app start listening for the GET path with the /hello endpoint
       get("/newuser", (req, res)->{
@@ -56,6 +57,6 @@ public class Main {
       });
 
 
-
+       */
     }
 }

@@ -9,7 +9,7 @@ public class Processes {
     public static String createNewUser(String username, String password) {
         DataBase data = DataBase.getInstance();
         if(data.createUser(username, password)) {
-            return "Okay!";
+            return "okay";
         }
         return "Username already in use.";
     };
@@ -33,6 +33,20 @@ public class Processes {
              w += x.nextInt(10);
         }
         return w;
+    }
+
+    public static String addFriendProcess(String token, String friendUserId) {
+        DataBase data = DataBase.getInstance();
+        String s = data.checkToken(token);
+        if(s.equals(null)) {
+            return "failed_authentication";
+        } else {
+            if(data.addFriend(s, friendUserId)) {
+                return "okay";
+            } else {
+                return "could not add Friend";
+            }
+        }
     }
 
 }
