@@ -49,4 +49,13 @@ public class Processes {
         }
     }
 
+    public static String printFriendList(String token) {
+        DataBase data = DataBase.getInstance();
+        String s = data.checkToken(token);
+        if(s.equals(null)) {
+            return "failed_authentication";
+        } else {
+            return data.getFriendList(s);
+        }
+    }
 }

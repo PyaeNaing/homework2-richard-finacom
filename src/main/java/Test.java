@@ -22,10 +22,10 @@ public class Test {
         d.addFriend("Pyae" , "Pyae");
         d.createUser("Sawyer", "OwO :3");
         d.addFriend("JJ", "Sawyer");
-        Cookie cookie = new Cookie("JJ", "123456");
+        Cookie cookie = new Cookie("Pyae", "1234567");
         d.createCookie(cookie);
-        System.out.println(d.checkToken("123456"));
-        System.out.println(d.checkToken("123456567"));
+        System.out.println(d.checkToken("1234567"));
+        System.out.println(Processes.printFriendList("1234567"));
         /**/
         /*Document doc = new Document("name", "MongoDB")
                 .append("type", "database")
