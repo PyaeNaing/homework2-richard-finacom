@@ -8,7 +8,7 @@ import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import javax.servlet.http.Cookie;
 import org.eclipse.jetty.server.Authentication;
-
+import java.util.*;
 import javax.print.Doc;
 import java.util.ArrayList;
 
@@ -107,6 +107,7 @@ public class DataBase {
         Document search = myCollectionToken.find(eq("key", key)).first();
         if(search == null) {
             Document doc = new Document("key", key).append("userName", userName);
+            doc.append("timeStamp", java.time.LocalDateTime.now());
             myCollectionToken.insertOne(doc);
         }
     }
