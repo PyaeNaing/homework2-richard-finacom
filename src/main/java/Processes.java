@@ -1,5 +1,4 @@
 package main.java;
-
 import javax.servlet.http.Cookie;
 import java.util.Random;
 
@@ -17,13 +16,14 @@ public class Processes {
     //method used for user login. returns a null cookie if login failed otherwise a valid cookie is returned
     public static String userLogin(String username, String password) {
         DataBase d = DataBase.getInstance();
-        String token = generateString();
-        Cookie authentication = new Cookie(username, token);
-        d.createCookie(authentication);
+
         if (!(d.loginCheck(username, password))) {
             return "login_failed";
         } else {
-            return token;
+            String token = generateString();
+            Cookie authentication = new Cookie(username, token);
+            d.createCookie(authentication);
+            return "Token: " + token;
         }
     }
 

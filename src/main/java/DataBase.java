@@ -107,7 +107,7 @@ public class DataBase {
         Document search = myCollectionToken.find(eq("key", key)).first();
         if(search == null) {
             Document doc = new Document("key", key).append("userName", userName);
-            doc.append("timeStamp", java.time.LocalDateTime.now());
+            doc.append("timeStamp", java.time.LocalDateTime.now().toString());
             myCollectionToken.insertOne(doc);
         }
     }

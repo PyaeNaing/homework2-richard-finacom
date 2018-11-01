@@ -1,10 +1,9 @@
 package main.java;
 import spark.Request;
 import spark.Response;
-
 import java.util.Set;
-
 import static spark.Spark.*;
+
 public class Main {
 
   public static String processRoute(Request req, Response res) {
